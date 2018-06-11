@@ -1,0 +1,32 @@
+
+<div *ngIf="saga">
+    <h2><span>Saga</span> {{saga.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Saga Name</span></dt>
+        <dd>
+            <span>{{saga.sagaName}}</span>
+        </dd>
+        <dt><span>Editor</span></dt>
+        <dd>
+            <div *ngIf="saga.editorId">
+                <a [routerLink]="['/editor-app', saga.editorId]">{{saga.editorId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'saga-app/'+ saga.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,49 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "autor",
+            "otherEntityName": "autor",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "saga",
+            "otherEntityName": "saga",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "saga",
+            "otherEntityName": "saga",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "bookName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "nbPage",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "style",
+            "fieldType": "Style",
+            "fieldValues": "FANTASY,SCIFI,THRILLER"
+        }
+    ],
+    "changelogDate": "20180611133326",
+    "javadoc": "not an ignored comment",
+    "entityTableName": "book",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "angularJSSuffix": "app"
+}
