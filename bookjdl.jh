@@ -11,7 +11,8 @@ entity Autor {
 /** not an ignored comment */
 entity Book {
 	bookName String required
-	nbPage String
+	nbPage Integer
+	releaseDate Date
     style Style
 }
 
