@@ -1,0 +1,52 @@
+
+<div *ngIf="book">
+    <h2><span>Book</span> {{book.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Book Name</span></dt>
+        <dd>
+            <span>{{book.bookName}}</span>
+        </dd>
+        <dt><span>Nb Page</span></dt>
+        <dd>
+            <span>{{book.nbPage}}</span>
+        </dd>
+        <dt><span>Style</span></dt>
+        <dd>
+            <span>{{book.style}}</span>
+        </dd>
+        <dt><span>Autor</span></dt>
+        <dd>
+            <div *ngIf="book.autorId">
+                <a [routerLink]="['/autor-app', book.autorId]">{{book.autorId}}</a>
+            </div>
+        </dd>
+        <dt><span>Saga</span></dt>
+        <dd>
+            <div *ngIf="book.sagaId">
+                <a [routerLink]="['/saga-app', book.sagaId]">{{book.sagaId}}</a>
+            </div>
+        </dd>
+        <dt><span>Saga</span></dt>
+        <dd>
+            <div *ngIf="book.sagaId">
+                <a [routerLink]="['/saga-app', book.sagaId]">{{book.sagaId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'book-app/'+ book.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

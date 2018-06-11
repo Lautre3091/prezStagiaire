@@ -1,0 +1,45 @@
+entity Editor {
+	editorName String required
+}
+
+entity Autor {
+	firstName String required
+	lastName String
+}
+
+// an ignored comment
+/** not an ignored comment */
+entity Book {
+	bookName String required
+	nbPage String
+    style Style
+}
+
+entity Saga {
+	sagaName String required
+}
+
+enum Style {
+    FANTASY, SCIFI, THRILLER
+}
+
+relationship OneToMany {
+	Saga{books} to Book
+	Autor{books} to Book
+	Editor{sagas} to Saga
+}
+
+relationship ManyToOne {
+	Book{saga} to Saga
+}
+
+// Set pagination options
+paginate Book, Autor with infinite-scroll
+paginate Saga, Editor  with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+// Set an angular suffix
+angularSuffix * with app
