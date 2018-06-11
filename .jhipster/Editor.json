@@ -1,0 +1,27 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "sagas",
+            "otherEntityName": "saga",
+            "otherEntityRelationshipName": "editor"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "editorName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20180611133547",
+    "entityTableName": "editor",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "angularJSSuffix": "app"
+}
