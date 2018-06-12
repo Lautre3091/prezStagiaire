@@ -12,7 +12,7 @@ entity Autor {
 entity Book {
 	bookName String required
 	nbPage Integer
-	releaseDate Date
+	releaseDate ZonedDateTime
     style Style
 }
 
