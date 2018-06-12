@@ -10,7 +10,8 @@ export class BookApp implements BaseEntity {
     constructor(
         public id?: number,
         public bookName?: string,
-        public nbPage?: string,
+        public nbPage?: number,
+        public releaseDate?: any,
         public style?: Style,
         public autorId?: number,
         public sagaId?: number,

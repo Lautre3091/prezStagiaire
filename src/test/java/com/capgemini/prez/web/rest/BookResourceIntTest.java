@@ -24,8 +24,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.util.List;
 
+import static com.capgemini.prez.web.rest.TestUtil.sameInstant;
 import static com.capgemini.prez.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -45,8 +50,11 @@ public class BookResourceIntTest {
     private static final String DEFAULT_BOOK_NAME = "AAAAAAAAAA";
     private static final String UPDATED_BOOK_NAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_NB_PAGE = "AAAAAAAAAA";
-    private static final String UPDATED_NB_PAGE = "BBBBBBBBBB";
+    private static final Integer DEFAULT_NB_PAGE = 1;
+    private static final Integer UPDATED_NB_PAGE = 2;
+
+    private static final ZonedDateTime DEFAULT_RELEASE_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_RELEASE_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
     private static final Style DEFAULT_STYLE = Style.FANTASY;
     private static final Style UPDATED_STYLE = Style.SCIFI;
@@ -97,6 +105,7 @@ public class BookResourceIntTest {
         Book book = new Book()
             .bookName(DEFAULT_BOOK_NAME)
             .nbPage(DEFAULT_NB_PAGE)
+            .releaseDate(DEFAULT_RELEASE_DATE)
             .style(DEFAULT_STYLE);
         return book;
     }
@@ -124,6 +133,7 @@ public class BookResourceIntTest {
         Book testBook = bookList.get(bookList.size() - 1);
         assertThat(testBook.getBookName()).isEqualTo(DEFAULT_BOOK_NAME);
         assertThat(testBook.getNbPage()).isEqualTo(DEFAULT_NB_PAGE);
+        assertThat(testBook.getReleaseDate()).isEqualTo(DEFAULT_RELEASE_DATE);
         assertThat(testBook.getStyle()).isEqualTo(DEFAULT_STYLE);
     }
 
@@ -178,7 +188,8 @@ public class BookResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(book.getId().intValue())))
             .andExpect(jsonPath("$.[*].bookName").value(hasItem(DEFAULT_BOOK_NAME.toString())))
-            .andExpect(jsonPath("$.[*].nbPage").value(hasItem(DEFAULT_NB_PAGE.toString())))
+            .andExpect(jsonPath("$.[*].nbPage").value(hasItem(DEFAULT_NB_PAGE)))
+            .andExpect(jsonPath("$.[*].releaseDate").value(hasItem(sameInstant(DEFAULT_RELEASE_DATE))))
             .andExpect(jsonPath("$.[*].style").value(hasItem(DEFAULT_STYLE.toString())));
     }
 
@@ -194,7 +205,8 @@ public class BookResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(book.getId().intValue()))
             .andExpect(jsonPath("$.bookName").value(DEFAULT_BOOK_NAME.toString()))
-            .andExpect(jsonPath("$.nbPage").value(DEFAULT_NB_PAGE.toString()))
+            .andExpect(jsonPath("$.nbPage").value(DEFAULT_NB_PAGE))
+            .andExpect(jsonPath("$.releaseDate").value(sameInstant(DEFAULT_RELEASE_DATE)))
             .andExpect(jsonPath("$.style").value(DEFAULT_STYLE.toString()));
     }
 
@@ -220,6 +232,7 @@ public class BookResourceIntTest {
         updatedBook
             .bookName(UPDATED_BOOK_NAME)
             .nbPage(UPDATED_NB_PAGE)
+            .releaseDate(UPDATED_RELEASE_DATE)
             .style(UPDATED_STYLE);
         BookDTO bookDTO = bookMapper.toDto(updatedBook);
 
@@ -234,6 +247,7 @@ public class BookResourceIntTest {
         Book testBook = bookList.get(bookList.size() - 1);
         assertThat(testBook.getBookName()).isEqualTo(UPDATED_BOOK_NAME);
         assertThat(testBook.getNbPage()).isEqualTo(UPDATED_NB_PAGE);
+        assertThat(testBook.getReleaseDate()).isEqualTo(UPDATED_RELEASE_DATE);
         assertThat(testBook.getStyle()).isEqualTo(UPDATED_STYLE);
     }
 

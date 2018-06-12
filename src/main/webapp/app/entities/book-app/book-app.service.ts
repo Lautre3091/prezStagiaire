@@ -3,6 +3,8 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { SERVER_API_URL } from '../../app.constants';
 
+import { JhiDateUtils } from 'ng-jhipster';
+
 import { BookApp } from './book-app.model';
 import { createRequestOption } from '../../shared';
 
@@ -13,7 +15,7 @@ export class BookAppService {
 
     private resourceUrl =  SERVER_API_URL + 'api/books';
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
     create(book: BookApp): Observable<EntityResponseType> {
         const copy = this.convert(book);
@@ -61,6 +63,8 @@ export class BookAppService {
      */
     private convertItemFromServer(book: BookApp): BookApp {
         const copy: BookApp = Object.assign({}, book);
+        copy.releaseDate = this.dateUtils
+            .convertDateTimeFromServer(book.releaseDate);
         return copy;
     }
 
@@ -69,6 +73,8 @@ export class BookAppService {
      */
     private convert(book: BookApp): BookApp {
         const copy: BookApp = Object.assign({}, book);
+
+        copy.releaseDate = this.dateUtils.toDate(book.releaseDate);
         return copy;
     }
 }
