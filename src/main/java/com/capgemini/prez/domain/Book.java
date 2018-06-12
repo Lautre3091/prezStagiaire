@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 import com.capgemini.prez.domain.enumeration.Style;
@@ -29,7 +30,10 @@ public class Book implements Serializable {
     private String bookName;
 
     @Column(name = "nb_page")
-    private String nbPage;
+    private Integer nbPage;
+
+    @Column(name = "release_date")
+    private ZonedDateTime releaseDate;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "style")
@@ -63,17 +67,30 @@ public class Book implements Serializable {
         this.bookName = bookName;
     }
 
-    public String getNbPage() {
+    public Integer getNbPage() {
         return nbPage;
     }
 
-    public Book nbPage(String nbPage) {
+    public Book nbPage(Integer nbPage) {
         this.nbPage = nbPage;
         return this;
     }
 
-    public void setNbPage(String nbPage) {
+    public void setNbPage(Integer nbPage) {
         this.nbPage = nbPage;
+    }
+
+    public ZonedDateTime getReleaseDate() {
+        return releaseDate;
+    }
+
+    public Book releaseDate(ZonedDateTime releaseDate) {
+        this.releaseDate = releaseDate;
+        return this;
+    }
+
+    public void setReleaseDate(ZonedDateTime releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public Style getStyle() {
@@ -141,7 +158,8 @@ public class Book implements Serializable {
         return "Book{" +
             "id=" + getId() +
             ", bookName='" + getBookName() + "'" +
-            ", nbPage='" + getNbPage() + "'" +
+            ", nbPage=" + getNbPage() +
+            ", releaseDate='" + getReleaseDate() + "'" +
             ", style='" + getStyle() + "'" +
             "}";
     }

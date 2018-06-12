@@ -24,7 +24,11 @@
         },
         {
             "fieldName": "nbPage",
-            "fieldType": "String"
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "releaseDate",
+            "fieldType": "ZonedDateTime"
         },
         {
             "fieldName": "style",

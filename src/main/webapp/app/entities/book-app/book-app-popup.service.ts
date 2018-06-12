@@ -2,6 +2,7 @@ import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 import { BookApp } from './book-app.model';
 import { BookAppService } from './book-app.service';
 
@@ -10,6 +11,7 @@ export class BookAppPopupService {
     private ngbModalRef: NgbModalRef;
 
     constructor(
+        private datePipe: DatePipe,
         private modalService: NgbModal,
         private router: Router,
         private bookService: BookAppService
@@ -29,6 +31,8 @@ export class BookAppPopupService {
                 this.bookService.find(id)
                     .subscribe((bookResponse: HttpResponse<BookApp>) => {
                         const book: BookApp = bookResponse.body;
+                        book.releaseDate = this.datePipe
+                            .transform(book.releaseDate, 'yyyy-MM-ddTHH:mm:ss');
                         this.ngbModalRef = this.bookModalRef(component, book);
                         resolve(this.ngbModalRef);
                     });

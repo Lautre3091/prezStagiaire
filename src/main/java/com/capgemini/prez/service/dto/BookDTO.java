@@ -1,6 +1,7 @@
 package com.capgemini.prez.service.dto;
 
 
+import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -18,7 +19,9 @@ public class BookDTO implements Serializable {
     @NotNull
     private String bookName;
 
-    private String nbPage;
+    private Integer nbPage;
+
+    private ZonedDateTime releaseDate;
 
     private Style style;
 
@@ -42,12 +45,20 @@ public class BookDTO implements Serializable {
         this.bookName = bookName;
     }
 
-    public String getNbPage() {
+    public Integer getNbPage() {
         return nbPage;
     }
 
-    public void setNbPage(String nbPage) {
+    public void setNbPage(Integer nbPage) {
         this.nbPage = nbPage;
+    }
+
+    public ZonedDateTime getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(ZonedDateTime releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public Style getStyle() {
@@ -100,7 +111,8 @@ public class BookDTO implements Serializable {
         return "BookDTO{" +
             "id=" + getId() +
             ", bookName='" + getBookName() + "'" +
-            ", nbPage='" + getNbPage() + "'" +
+            ", nbPage=" + getNbPage() +
+            ", releaseDate='" + getReleaseDate() + "'" +
             ", style='" + getStyle() + "'" +
             "}";
     }
